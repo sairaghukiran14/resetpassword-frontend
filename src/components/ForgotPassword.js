@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 const ForgotPassword = () => {
-  let navigate=useNavigate()
+  let navigate = useNavigate();
   const { id, token } = useParams();
   const [password, setPassword] = useState("");
-let [message,setMessage]=useState(false);
+  let [message, setMessage] = useState(false);
 
   const uservalid = async () => {
     const response = await fetch(
@@ -19,43 +19,41 @@ let [message,setMessage]=useState(false);
         },
       }
     );
-    const data= await response.json()
+    const data = await response.json();
     // console.log(data)
-    if(data.status===200){
-    console.log("user valid")
-    }else{
-      navigate("*")
+    if (data.status === 200) {
+      console.log("user valid");
+    } else {
+      navigate("*");
     }
-
   };
 
-  let sendpassword =async (e) => {
+  let sendpassword = async (e) => {
     e.preventDefault();
-    if(password===""){
-      toast.error("Password is required!!")
-    }
-    else{
-      const res=await fetch(`https://password-reset-vgrp.onrender.com/${id}/${token}`,{
-        method: "POST",
-        headers: {
-          "Access-Control-Allow-Origin": true,
-          "Content-Type": "application/json"
-        },
-        body:JSON.stringify({
-          password:password
-        })
-      });
-      const data=await res.json();
-      if(data.status===200){
+    if (password === "") {
+      toast.error("Password is required!!");
+    } else {
+      const res = await fetch(
+        `https://resetpassword-bd.onrender.com/${id}/${token}`,
+        {
+          method: "POST",
+          headers: {
+            "Access-Control-Allow-Origin": true,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            password: password,
+          }),
+        }
+      );
+      const data = await res.json();
+      if (data.status === 200) {
         setPassword("");
-        setMessage(true)
+        setMessage(true);
+      } else {
+        toast.error("Token expired,generate a new link");
       }
-     else{
-    toast.error("Token expired,generate a new link")
-     }
     }
-
-
   };
 
   useEffect(() => {
@@ -70,7 +68,13 @@ let [message,setMessage]=useState(false);
           style={{ boxShadow: "0 0 8px grey" }}
         >
           <h2 className="text-center pb-2">Enter New Password</h2>
-          {message?(<p className='text-success' style={{"fontWeight":"bold"}}>Password Updated Successfully!!</p>):""}
+          {message ? (
+            <p className="text-success" style={{ fontWeight: "bold" }}>
+              Password Updated Successfully!!
+            </p>
+          ) : (
+            ""
+          )}
           <div className="mb-3">
             <input
               type="password"
@@ -91,7 +95,7 @@ let [message,setMessage]=useState(false);
             Reset
           </button>
         </form>
-        <ToastContainer/>
+        <ToastContainer />
       </div>
     </>
   );
