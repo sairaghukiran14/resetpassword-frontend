@@ -62,23 +62,23 @@ const ForgotPassword = () => {
 
   return (
     <>
-      <div className="container d-flex flex-column justify-content-center align-items-center ">
+      <div className="page flex flex-col items-center p-4">
         <form
-          className="mt-5 border-info border p-5"
+          className=" bg-white rounded p-4"
           style={{ boxShadow: "0 0 8px grey" }}
         >
-          <h2 className="text-center pb-2">Enter New Password</h2>
+          <h2 className="text-xl font-medium">Enter New Password</h2>
           {message ? (
-            <p className="text-success" style={{ fontWeight: "bold" }}>
+            <p className="" style={{ fontWeight: "bold" }}>
               Password Updated Successfully!!
             </p>
           ) : (
             ""
           )}
-          <div className="mb-3">
+          <div className="page flex flex-col items-center p-4 w-96">
             <input
               type="password"
-              className="form-control"
+              className="p-2 border rounded w-full mb-1"
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -89,7 +89,7 @@ const ForgotPassword = () => {
 
           <button
             type="submit"
-            className="btn btn-primary"
+            className="bg-green-500 rounded w-full text-white p-2"
             onClick={sendpassword}
           >
             Reset

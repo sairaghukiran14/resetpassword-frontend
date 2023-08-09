@@ -38,20 +38,28 @@ const Header = () => {
       },
     });
     const data = await res.json();
-    if (data.status===200) {
+    if (data.status === 200) {
       localStorage.removeItem("usersdatatoken");
       setLoginData("");
       navigate("/");
     } else {
-     navigate('*')
+      navigate("*");
     }
   };
 
   return (
     <>
-      <header>
+      <header className="bg-white">
         <nav>
-          <h1 onClick={()=>{navigate('/')}} style={{"cursor":"pointer"}}>Navbar</h1>
+          <h1
+            className="text-xl font-semibold text-black"
+            onClick={() => {
+              navigate("/");
+            }}
+            style={{ cursor: "pointer" }}
+          >
+            Navigation Bar
+          </h1>
           <div className="avtar">
             {loginData.validuserone ? (
               <Avatar sx={{ bgcolor: deepOrange[500] }} onClick={handleClick}>
@@ -59,7 +67,7 @@ const Header = () => {
               </Avatar>
             ) : (
               <Avatar
-                style={{ backgroundColor: "blue" }}
+                style={{ backgroundColor: "black" }}
                 onClick={handleClick}
               />
             )}
@@ -88,7 +96,7 @@ const Header = () => {
                     handleClose();
                     logoutuser();
                   }}
-                >  
+                >
                   Logout
                 </MenuItem>
               </>
